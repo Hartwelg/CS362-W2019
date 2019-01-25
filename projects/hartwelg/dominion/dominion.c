@@ -713,8 +713,6 @@ int remodel()
 	      break;
 	    }
 	}
-
-
       return 0;
 }
 
@@ -769,7 +767,6 @@ int feast()
 	temphand[i] = -1;
       }
       //Reset Hand
-      			
       return 0;
 }
 
@@ -822,6 +819,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     {
     case adventurer:
     	adventurer();
+    	return 0;
     case council_room:
       //+4 Cards
       for (i = 0; i < 4; i++)
@@ -848,6 +846,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 			
     case feast:
     	feast();
+    	return 0;
     case gardens:
       return -1;
 			
@@ -888,8 +887,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 			
     case remodel:
     	remodel();
+    	return 0;
     case smithy:
     	smithy();
+    	return 0;
     case baron:
       state->numBuys++;//Increase buys by 1!
       if (choice1 > 0){//Boolean true or going to discard an estate
@@ -1005,6 +1006,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case steward:
     	steward();
+    	return 0;
     case tribute:
       if ((state->discardCount[nextPlayer] + state->deckCount[nextPlayer]) <= 1){
 	if (state->deckCount[nextPlayer] > 0){
