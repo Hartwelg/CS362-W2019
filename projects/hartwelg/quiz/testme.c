@@ -70,24 +70,6 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
     int random = rand();
-
-    // const char alpha[] = "abcdefghijklmnopqrstuvwxyz";
-    // int i = 0;
-    // char *randomString;
-    // char randChar;
-    // while (i <= 10)
-    // {
-    //   do
-    //   {
-    //     random = rand();
-    //     randChar = alpha[random % 26 - 1];
-    //   }
-    //   while (randChar == randomString[i]);
-    //   // randomString[i] = randChar;
-    //   sprintf(randomString, "%s%c", randomString, randChar);
-    //   i++;
-    // }
-
     testme();
     return 0;
 }
