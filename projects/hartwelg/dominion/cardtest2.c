@@ -15,8 +15,7 @@ int main() {
     int shuffledCards = 0;
 
     int i, j, m;
-    int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0;
-    //, bonus = 0;
+    int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
     int remove1, remove2;
     int seed = 1000;
     int numPlayers = 2;
@@ -30,16 +29,16 @@ int main() {
 
 	printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
 
-	// ----------- TEST 1: choice1 = 1 = +3 cards --------------
-	printf("TEST 1: choice1 = 1 = +3 cards\n");
+	// ----------- TEST 1: choice1 = 1 = dig through deck to reveal treasure --------------
+	printf("TEST 1: choice1 = 1 = dig through deck to reveal treasure\n");
 
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 1;
 	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-	newCards = 0;
-	xtraCoins = 0;
+	newCards = 2;
+	//xtraCoins = 0;
 	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
 	printf("coins = %d, expected = %d\n", testG.coins, G.coins + xtraCoins);

@@ -811,7 +811,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   
 	if (card == adventurer)
 	{
-    	Adventurer(choice1, choice2, choice3, state, handPos, currentPlayer, temphand);
+    Adventurer(choice1, choice2, choice3, state, handPos, currentPlayer, temphand);
 	}
 	else if (card == smithy)
 	{
