@@ -36,9 +36,9 @@ int main() {
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 1;
-	Feast(choice1, choice2, choice3, &testG, handpos, thisPlayer);
+	cardEffect(feast, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-	newCards = 3;
+	newCards = -1;
 	xtraCoins = 0;
 	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
@@ -53,9 +53,9 @@ int main() {
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 2;
-	Feast(choice1, choice2, choice3, &testG, handpos, thisPlayer);
+	cardEffect(feast, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-	newCards = 3;
+	newCards = -1;
 	xtraCoins = 0;
 	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
@@ -92,7 +92,7 @@ int main() {
 			choice3 = i;
 			remove1 = testG.hand[thisPlayer][i];
 			remove2 = testG.hand[thisPlayer][j];
-			Feast(choice1, choice2, choice3, &testG, handpos, thisPlayer);
+			cardEffect(feast, choice1, choice2, choice3, &testG, handpos, &bonus);
 
 			printf("removed: (%d)(%d); ", remove1, remove2);
 			printf("ending cards: ");
