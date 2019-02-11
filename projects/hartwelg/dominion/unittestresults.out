@@ -1,0 +1,315 @@
+Unit testing results
+cardtest1.c
+----------------- Testing Card: smithy ----------------
+TEST 1: choice1 = 1 = +3 cards
+current player's hand count = 6, expected = 8
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 44.
+other player's hand count = 5, expected = 3
+TEST FAILED: 'G.handCount[thisPlayer] == testG.handCount[thisPlayer] + discarded - newCards' on line 47.
+current player's deck count = 3, expected = 2
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 51.
+other player's deck count = 5, expected = 2
+TEST FAILED: 'G.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 54.
+Testing that current player has played a card
+TEST SUCCESSFULLY COMPLETED.
+Testing that other player has not played a card
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for current player
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for other player
+TEST SUCCESSFULLY COMPLETED.
+
+ >>>>> SUCCESS: Testing complete smithy <<<<<
+
+cardtest2.c
+cardtest3.c
+----------------- Testing Card: feast ----------------
+TEST 1: choice1 = 1 = +0 cards
+Testing that current player's hand count has changed
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing thatcurrent player's deck count has not changed
+deck count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that a card has been put in the current player's discard pile
+discard count = 1, expected = 1
+TEST SUCCESSFULLY COMPLETED.
+Testing that other player's hand count has not changed
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that other player's deck count has not changed
+deck count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that a card has not been put in the other player's discard pile
+discard count = 0, expected = 0
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for current player
+coin count = 5, expected = 4
+TEST FAILED: 'testG.coins == G.coins + xtraCoins' on line 69.
+Testing that no coins are added for other player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+
+ >>>>> SUCCESS: Testing complete feast <<<<<
+
+cardtest4.c
+----------------- Testing Card: remodel ----------------
+TEST 1: choice1 = 1 = +0 cards
+Testing that there is no change in number of hand cards for current player
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that there is no change in hand cards for other player
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that there is no change in deck count for current player
+deck count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that there is no change in deck count for other player
+deck count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that current player's discard pile gains a card
+discard count = 0, expected = 1
+TEST FAILED: 'testG.discardCount[thisPlayer] == G.discardCount[thisPlayer] + 1' on line 61.
+Testing that other player's discard pile does not gain a card
+discard count = 0, expected = -1
+TEST FAILED: 'G.discardCount[thisPlayer] == testG.discardCount[thisPlayer] - 1' on line 65.
+Testing that no coins are added for current player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for other player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+
+ >>>>> SUCCESS: Testing complete remodel <<<<<
+
+unittest1.c
+TESTING handCard():
+Adding 5 cards to player's hand
+Testing that first card in hand is copper
+TEST SUCCESSFULLY COMPLETED.
+Testing that second card in hand is remodel
+TEST SUCCESSFULLY COMPLETED.
+Testing that third card in hand is gold
+TEST SUCCESSFULLY COMPLETED.
+Testing that fourth card in hand is council room
+TEST SUCCESSFULLY COMPLETED.
+Testing that fifth card in hand is gardens
+TEST SUCCESSFULLY COMPLETED.
+Testing that there is no sixth card in hand
+TEST FAILED: 'G.hand[thisPlayer][5] == copper' on line 49.
+Testing that first card is not gold
+TEST FAILED: 'G.hand[thisPlayer][0] == gold' on line 52.
+All tests complete!
+unittest2.c
+TESTING discardCard():
+Adding 5 cards to player's hand
+Testing for player not having 6 cards
+TEST SUCCESSFULLY COMPLETED.
+Player has 5 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 4 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 3 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 2 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 1 card in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 0 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card, testing that hand does not have < 0 cards
+TEST FAILED: 'G.handCount[thisPlayer] != -1' on line 71.
+All tests complete!
+unittest3.c
+TESTING numHandCards():
+Testing that player has 5 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 2 cards from player's hand
+Testing that player has 3 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing last 3 cards from player's hand
+Testing that player has 0 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing card from empty hand
+Testing if player still has 0 cards in hand
+TEST FAILED: 'G.handCount[thisPlayer] == 0' on line 54.
+All tests completed!
+unittest4.c
+TESTING gainCard():
+Adding feast card to player's hand
+Testing whether number of cards in hand was increased correctly
+TEST FAILED: 'G.handCount[thisPlayer] == 1' on line 38.
+TEST FAILED: 'G.hand[thisPlayer][0] == feast' on line 39.
+Adding steward and smithy cards to hand
+Testing whether both cards were correctly added to hand
+TEST FAILED: 'G.handCount[thisPlayer] == 3' on line 46.
+Adding adventurer card to player's deck
+TEST FAILED: 'G.deckCount[thisPlayer] == 1' on line 50.
+All tests complete!
+gcov dominion.c
+Unit testing results
+cardtest1.c
+----------------- Testing Card: smithy ----------------
+TEST 1: choice1 = 1 = +3 cards
+current player's hand count = 6, expected = 8
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 44.
+other player's hand count = 5, expected = 3
+TEST FAILED: 'G.handCount[thisPlayer] == testG.handCount[thisPlayer] + discarded - newCards' on line 47.
+current player's deck count = 3, expected = 2
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 51.
+other player's deck count = 5, expected = 2
+TEST FAILED: 'G.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 54.
+Testing that current player has played a card
+TEST SUCCESSFULLY COMPLETED.
+Testing that other player has not played a card
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for current player
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for other player
+TEST SUCCESSFULLY COMPLETED.
+
+ >>>>> SUCCESS: Testing complete smithy <<<<<
+
+cardtest2.c
+cardtest3.c
+----------------- Testing Card: feast ----------------
+TEST 1: choice1 = 1 = +0 cards
+Testing that current player's hand count has changed
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing thatcurrent player's deck count has not changed
+deck count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that a card has been put in the current player's discard pile
+discard count = 1, expected = 1
+TEST SUCCESSFULLY COMPLETED.
+Testing that other player's hand count has not changed
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that other player's deck count has not changed
+deck count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that a card has not been put in the other player's discard pile
+discard count = 0, expected = 0
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for current player
+coin count = 5, expected = 4
+TEST FAILED: 'testG.coins == G.coins + xtraCoins' on line 69.
+Testing that no coins are added for other player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+
+ >>>>> SUCCESS: Testing complete feast <<<<<
+
+cardtest4.c
+----------------- Testing Card: remodel ----------------
+TEST 1: choice1 = 1 = +0 cards
+Testing that there is no change in number of hand cards for current player
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that there is no change in hand cards for other player
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that there is no change in deck count for current player
+deck count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that there is no change in deck count for other player
+deck count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that current player's discard pile gains a card
+discard count = 0, expected = 1
+TEST FAILED: 'testG.discardCount[thisPlayer] == G.discardCount[thisPlayer] + 1' on line 61.
+Testing that other player's discard pile does not gain a card
+discard count = 0, expected = -1
+TEST FAILED: 'G.discardCount[thisPlayer] == testG.discardCount[thisPlayer] - 1' on line 65.
+Testing that no coins are added for current player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for other player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+
+ >>>>> SUCCESS: Testing complete remodel <<<<<
+
+unittest1.c
+TESTING handCard():
+Adding 5 cards to player's hand
+Testing that first card in hand is copper
+TEST SUCCESSFULLY COMPLETED.
+Testing that second card in hand is remodel
+TEST SUCCESSFULLY COMPLETED.
+Testing that third card in hand is gold
+TEST SUCCESSFULLY COMPLETED.
+Testing that fourth card in hand is council room
+TEST SUCCESSFULLY COMPLETED.
+Testing that fifth card in hand is gardens
+TEST SUCCESSFULLY COMPLETED.
+Testing that there is no sixth card in hand
+TEST FAILED: 'G.hand[thisPlayer][5] == copper' on line 49.
+Testing that first card is not gold
+TEST FAILED: 'G.hand[thisPlayer][0] == gold' on line 52.
+All tests complete!
+unittest2.c
+TESTING discardCard():
+Adding 5 cards to player's hand
+Testing for player not having 6 cards
+TEST SUCCESSFULLY COMPLETED.
+Player has 5 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 4 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 3 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 2 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 1 card in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card
+Player has 0 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 1 card, testing that hand does not have < 0 cards
+TEST FAILED: 'G.handCount[thisPlayer] != -1' on line 71.
+All tests complete!
+unittest3.c
+TESTING numHandCards():
+Testing that player has 5 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing 2 cards from player's hand
+Testing that player has 3 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing last 3 cards from player's hand
+Testing that player has 0 cards in hand
+TEST SUCCESSFULLY COMPLETED.
+Removing card from empty hand
+Testing if player still has 0 cards in hand
+TEST FAILED: 'G.handCount[thisPlayer] == 0' on line 54.
+All tests completed!
+unittest4.c
+TESTING gainCard():
+Adding feast card to player's hand
+Testing whether number of cards in hand was increased correctly
+TEST FAILED: 'G.handCount[thisPlayer] == 1' on line 38.
+TEST FAILED: 'G.hand[thisPlayer][0] == feast' on line 39.
+Adding steward and smithy cards to hand
+Testing whether both cards were correctly added to hand
+TEST FAILED: 'G.handCount[thisPlayer] == 3' on line 46.
+Adding adventurer card to player's deck
+TEST FAILED: 'G.deckCount[thisPlayer] == 1' on line 50.
+All tests complete!
+gcov dominion.c
+File 'dominion.c'
+Lines executed:31.80% of 566
+Branches executed:36.97% of 422
+Taken at least once:22.75% of 422
+Calls executed:23.16% of 95
+Creating 'dominion.c.gcov'
+

@@ -1,0 +1,72 @@
+----------------- Testing Card: adventurer ----------------
+Testing that current player's hand gains 2 cards
+hand count = 7, expected = 7
+TEST SUCCESSFULLY COMPLETED.
+Testing that other player's hand does not gain 2 cards
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for current player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for other player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+starting cards: (4)(12)(6)(8)(10); removed: (12)(6); ending cards: , expected: (8)(10)
+hand count = 7, expected = 5
+deck count = 0, expected = 5
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (12)(8); ending cards: , expected: (6)(10)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (12)(10); ending cards: , expected: (6)(8)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (6)(8); ending cards: , expected: (12)(10)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (6)(10); ending cards: , expected: (12)(8)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (8)(10); ending cards: , expected: (12)(6)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+
+ >>>>> SUCCESS: Testing complete adventurer <<<<<
+
+----------------- Testing Card: adventurer ----------------
+Testing that current player's hand gains 2 cards
+hand count = 7, expected = 7
+TEST SUCCESSFULLY COMPLETED.
+Testing that other player's hand does not gain 2 cards
+hand count = 5, expected = 5
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for current player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+Testing that no coins are added for other player
+coin count = 4, expected = 4
+TEST SUCCESSFULLY COMPLETED.
+starting cards: (4)(12)(6)(8)(10); removed: (12)(6); ending cards: , expected: (8)(10)
+hand count = 7, expected = 5
+deck count = 0, expected = 5
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (12)(8); ending cards: , expected: (6)(10)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (12)(10); ending cards: , expected: (6)(8)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (6)(8); ending cards: , expected: (12)(10)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (6)(10); ending cards: , expected: (12)(8)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+starting cards: (4)(12)(6)(8)(10); removed: (8)(10); ending cards: , expected: (12)(6)
+TEST FAILED: 'testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded' on line 117.
+TEST FAILED: 'testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards' on line 118.
+
+ >>>>> SUCCESS: Testing complete adventurer <<<<<
+

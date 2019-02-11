@@ -79,7 +79,8 @@ unittestresults: cardtest1.c cardtest2.c cardtest3.c cardtest4.c unittest1.c uni
 	echo "unittest4.c" >> unittestresults.out
 	gcc -o unittest4 unittest4.c dominion.o rngs.o $(CFLAGS)
 	./unittest4 >> unittestresults.out
-	gcov diminion.c >> unittestresults.out
+	echo "gcov dominion.c" >> unittestresults.out
+	gcov dominion.c -b >> unittestresults.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
