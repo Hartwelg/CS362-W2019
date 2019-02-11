@@ -13,6 +13,7 @@
 int main() {
     int newCards = 0;
     int discarded = 0;
+    int xtraCoins = 0;
     int shuffledCards = 0;
 
     int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
@@ -37,6 +38,8 @@ int main() {
 	cardEffect(remodel, choice1, choice2, choice3, &testG, handpos, &bonus);
 
 	newCards = 0;
+	xtraCoins = 0;
+
 	printf("Testing that there is no change in number of hand cards for current player\n");
 	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	asserttrue(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
@@ -60,6 +63,14 @@ int main() {
 	printf("Testing that other player's discard pile does not gain a card\n");
 	printf("discard count = %d, expected = %d\n", G.discardCount[thisPlayer], testG.discardCount[thisPlayer] - 1);
 	asserttrue(G.discardCount[thisPlayer] == testG.discardCount[thisPlayer] - 1);
+
+	printf("Testing that no coins are added for current player\n");
+	printf("coin count = %d, expected = %d\n", testG.coins, G.coins + xtraCoins);
+	asserttrue(testG.coins == G.coins + xtraCoins);
+
+	printf("Testing that no coins are added for other player\n");
+	printf("coin count = %d, expected = %d\n", G.coins, G.coins + xtraCoins);
+	asserttrue(G.coins == G.coins + xtraCoins);
 
 	printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
 

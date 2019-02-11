@@ -13,6 +13,7 @@
 int main() {
     int newCards = 0;
     int discarded = 0;
+    int xtraCoins = 0;
     int shuffledCards = 0;
 
     //int i, j, m;
@@ -38,6 +39,7 @@ int main() {
 	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
 
 	newCards = 3;
+	xtraCoins = 0;
 	printf("current player's hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	asserttrue(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
 
@@ -58,6 +60,12 @@ int main() {
 	printf("Testing that other player has not played a card\n");
 	asserttrue(G.playedCardCount == 0);
 
+	// ----------- TEST 4: no coins gained for current or other player--------------
+	printf("Testing that no coins are added for current player\n");
+	asserttrue(testG.coins == G.coins + xtraCoins);
+
+	printf("Testing that no coins are added for other player\n");
+	asserttrue(G.coins == G.coins + xtraCoins);
 	printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
 
 	return 0;

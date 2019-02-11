@@ -48,6 +48,9 @@ int main() {
     printf("Testing that there is no sixth card in hand\n");
     asserttrue(G.hand[thisPlayer][5] == copper);
 
+    printf("Testing that first card is not gold\n");
+    asserttrue(G.hand[thisPlayer][0] == gold);
+
     printf("All tests complete!\n");
 
     return 0;

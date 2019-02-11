@@ -13,6 +13,7 @@
 int main() {
     int newCards = 0;
     int discarded = 0;
+    int xtraCoins = 0;
     int shuffledCards = 0;
 
     int i, j, m;
@@ -30,15 +31,14 @@ int main() {
 
 	printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
 
-	// ----------- TEST 1: choice1 = 1 = check that two cards were added to hand --------------
-	printf("TEST 1: choice1 = 1 = dig through deck to reveal treasure\n");
-
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 1;
 	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
 
 	newCards = 2;
+	xtraCoins = 0;
+
 	printf("Testing that current player's hand gains 2 cards\n");
 	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	asserttrue(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
@@ -47,14 +47,19 @@ int main() {
 	printf("hand count = %d, expected = %d\n", G.handCount[thisPlayer], testG.handCount[thisPlayer] + discarded - newCards);
 	asserttrue(G.handCount[thisPlayer] == testG.handCount[thisPlayer] + discarded - newCards);
 
+	printf("Testing that no coins are added for current player\n");
+	printf("coin count = %d, expected = %d\n", testG.coins, G.coins + xtraCoins);
+	asserttrue(testG.coins == G.coins + xtraCoins);
+
+	printf("Testing that no coins are added for other player\n");
+	printf("coin count = %d, expected = %d\n", G.coins, G.coins + xtraCoins);
+	asserttrue(G.coins == G.coins + xtraCoins);
+
 	// // ----------- TEST 2: check that revealed cards are trashed from deck --------------
 	// printf("TEST2: Number of revealed cards trashed from deck\n");
 	// printf("current player's deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
 	// asserttrue(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
 
-	// ----------- TEST 3: choice1 = 3 = trash two cards --------------
-
-	printf("TEST 3: choice1 = 3 = trash two cards\n");
 	choice1 = 3;
 
 	// cycle through deck to find 2 treasure cards
@@ -102,7 +107,6 @@ int main() {
 
 			// tests for the appropriate number of remaining cards
 			newCards = 0;
-			xtraCoins = 0;
 			//----------------------------------------------------------------------------------------
 			discarded = 0;
 			if (i==1 && j==2) {
