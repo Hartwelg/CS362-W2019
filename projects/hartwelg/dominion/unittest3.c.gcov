@@ -1,0 +1,64 @@
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:
+        -:    8:// set NOISY_TEST to 0 to remove printfs from output
+        -:    9:#define NOISY_TEST 1
+        -:   10:
+        -:   11:#define asserttrue(bool) if(bool) printf("TEST SUCCESSFULLY COMPLETED.\n"); else printf("TEST FAILED: '" #bool  "' on line %d.\n", __LINE__);
+        -:   12:
+        1:   13:int main() {
+        1:   14:    int seed = 1000;
+        1:   15:    int numPlayers = 2;
+        1:   16:    int thisPlayer = 0;
+        -:   17:    struct gameState G;
+        1:   18:    int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
+        -:   19:            sea_hag, tribute, smithy, council_room};
+        -:   20:
+        -:   21:    // initialize a game state and player cards
+        1:   22:    initializeGame(numPlayers, k, seed, &G);
+        -:   23:
+        1:   24:    printf ("TESTING numHandCards():\n");
+        -:   25:
+        1:   26:         G.hand[thisPlayer][0] = steward;
+        1:   27:         G.hand[thisPlayer][1] = copper;
+        1:   28:         G.hand[thisPlayer][2] = duchy;
+        1:   29:         G.hand[thisPlayer][3] = estate;
+        1:   30:         G.hand[thisPlayer][4] = feast;
+        -:   31:
+        1:   32:         printf("Testing that player has 5 cards in hand\n");
+        1:   33:         asserttrue(G.handCount[thisPlayer] == 5);
+        -:   34:         
+        1:   35:         printf("Removing 2 cards from player's hand\n");
+        1:   36:         discardCard(1, thisPlayer, &G, 1);
+        1:   37:         discardCard(4, thisPlayer, &G, 1);
+        -:   38:
+        1:   39:         printf("Testing that player has 3 cards in hand\n");
+        1:   40:         asserttrue(G.handCount[thisPlayer] == 3);
+        -:   41:
+        1:   42:         printf("Removing last 3 cards from player's hand\n");
+        1:   43:         discardCard(0, thisPlayer, &G, 1);
+        1:   44:         discardCard(2, thisPlayer, &G, 1);
+        1:   45:         discardCard(3, thisPlayer, &G, 1);
+        -:   46:
+        1:   47:         printf("Testing that player has 0 cards in hand\n");
+        1:   48:         asserttrue(G.handCount[thisPlayer] == 0);
+        -:   49:
+        1:   50:         printf("Removing card from empty hand\n");
+        1:   51:         discardCard(5, thisPlayer, &G, 1);
+        -:   52:
+        1:   53:         printf("Testing if player still has 0 cards in hand\n");
+        1:   54:         asserttrue(G.handCount[thisPlayer] == 0);
+        -:   55:
+        1:   56:    printf("All tests completed!\n");
+        -:   57:
+        1:   58:    return 0;
+        -:   59:}

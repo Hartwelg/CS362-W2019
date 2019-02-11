@@ -8,66 +8,47 @@
 // set NOISY_TEST to 0 to remove printfs from output
 #define NOISY_TEST 1
 
+#define asserttrue(bool) if(bool) printf("TEST SUCCESSFULLY COMPLETED.\n"); else printf("TEST FAILED: '" #bool  "' on line %d.\n", __LINE__);
+
 int main() {
-    int i;
     int seed = 1000;
-    int numPlayer = 2;
-    int maxBonus = 10;
-    int p, r, handCount;
-    int bonus;
-    int k[10] = {adventurer, council_room, feast, gardens, mine
-               , remodel, smithy, village, baron, great_hall};
-    struct gameState G;
-    int maxHandCount = 5;
-    // arrays of all coppers, silvers, and golds
-    int coppers[MAX_HAND];
-    int silvers[MAX_HAND];
-    int golds[MAX_HAND];
-    for (i = 0; i < MAX_HAND; i++)
-    {
-        coppers[i] = copper;
-        silvers[i] = silver;
-        golds[i] = gold;
-    }
+    int numPlayers = 2;
+    int thisPlayer = 0;
+	struct gameState G;
+	int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
+			sea_hag, tribute, smithy, council_room};
 
-    printf ("TESTING supplyCount():\n");
-    for (p = 0; p < numPlayer; p++)
-    {
-        for (handCount = 1; handCount <= maxHandCount; handCount++)
-        {
-            for (bonus = 0; bonus <= maxBonus; bonus++)
-            {
-#if (NOISY_TEST == 1)
-                printf("Test player %d with %d treasure card(s) and %d bonus.\n", p, handCount, bonus);
-#endif
-                memset(&G, 23, sizeof(struct gameState));   // clear the game state
-                r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
-                G.handCount[p] = handCount;                 // set the number of cards on hand
-                memcpy(G.hand[p], coppers, sizeof(int) * handCount); // set all the cards to copper
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 1 + bonus);
-#endif
-                assert(G.coins == handCount * 1 + bonus); // check if the number of coins is correct
+	// initialize a game state and player cards
+	initializeGame(numPlayers, k, seed, &G);
 
-                memcpy(G.hand[p], silvers, sizeof(int) * handCount); // set all the cards to silver
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 2 + bonus);
-#endif
-                assert(G.coins == handCount * 2 + bonus); // check if the number of coins is correct
+    printf ("TESTING handCard():\n");
+    
+    printf("Adding 5 cards to player's hand\n");
+        G.hand[thisPlayer][0] = copper;
+        G.hand[thisPlayer][1] = remodel;
+        G.hand[thisPlayer][2] = gold;
+        G.hand[thisPlayer][3] = council_room;
+        G.hand[thisPlayer][4] = gardens;
 
-                memcpy(G.hand[p], golds, sizeof(int) * handCount); // set all the cards to gold
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 3 + bonus);
-#endif
-                assert(G.coins == handCount * 3 + bonus); // check if the number of coins is correct
-            }
-        }
-    }
+    printf("Testing that first card in hand is copper\n");
+    asserttrue(G.hand[thisPlayer][0] == copper);
 
-    printf("All tests passed!\n");
+    printf("Testing that second card in hand is remodel\n");
+    asserttrue(G.hand[thisPlayer][1] == remodel);
+
+    printf("Testing that third card in hand is gold\n");
+    asserttrue(G.hand[thisPlayer][2] == gold);
+
+    printf("Testing that fourth card in hand is council room\n");
+    asserttrue(G.hand[thisPlayer][3] == council_room);
+
+    printf("Testing that fifth card in hand is gardens\n");
+    asserttrue(G.hand[thisPlayer][4] == gardens);
+
+    printf("Testing that there is no sixth card in hand\n");
+    asserttrue(G.hand[thisPlayer][5] == copper);
+
+    printf("All tests complete!\n");
 
     return 0;
 }

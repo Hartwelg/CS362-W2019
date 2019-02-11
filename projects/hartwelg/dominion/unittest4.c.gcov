@@ -1,0 +1,60 @@
+        -:    0:Source:unittest4.c
+        -:    0:Graph:unittest4.gcno
+        -:    0:Data:unittest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:
+        -:    8:// set NOISY_TEST to 0 to remove printfs from output
+        -:    9:#define NOISY_TEST 1
+        -:   10:
+        -:   11:#define asserttrue(bool) if(bool) printf("TEST SUCCESSFULLY COMPLETED.\n"); else printf("TEST FAILED: '" #bool  "' on line %d.\n", __LINE__);
+        -:   12:
+        1:   13:int main() {
+        1:   14:    int seed = 1000;
+        1:   15:    int numPlayers = 2;
+        1:   16:    int thisPlayer = 0;
+        -:   17:    struct gameState G;
+        1:   18:    int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
+        -:   19:            sea_hag, tribute, smithy, council_room};
+        -:   20:
+        -:   21:    // initialize a game state and player cards
+        1:   22:    initializeGame(numPlayers, k, seed, &G);
+        -:   23:
+        -:   24:// /int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
+        -:   25:
+        -:   26:  //added card for [whoseTurn] current player:
+        -:   27:  // toFlag = 0 : add to discard
+        -:   28:  // toFlag = 1 : add to deck
+        -:   29:  // toFlag = 2 : add to hand
+        -:   30:  //-----------------------------------------
+        -:   31:
+        1:   32:    printf ("TESTING gainCard():\n");
+        -:   33:
+        1:   34:    printf("Adding feast card to player's hand\n");
+        1:   35:    gainCard(feast, &G, 2, thisPlayer);
+        -:   36:
+        1:   37:    printf("Testing whether number of cards in hand was increased correctly\n");
+        1:   38:    asserttrue(G.handCount[thisPlayer] == 1);
+        1:   39:    asserttrue(G.hand[thisPlayer][0] == feast);
+        -:   40:
+        1:   41:    printf("Adding steward and smithy cards to hand\n");
+        1:   42:    gainCard(steward, &G, 2, thisPlayer);
+        1:   43:    gainCard(smithy, &G, 2, thisPlayer);
+        -:   44:
+        1:   45:    printf("Testing whether both cards were correctly added to hand\n");
+        1:   46:    asserttrue(G.handCount[thisPlayer] == 3);
+        -:   47:
+        1:   48:    printf("Adding adventurer card to player's deck\n");
+        1:   49:    gainCard(adventurer, &G, 1, thisPlayer);
+        1:   50:    asserttrue(G.deckCount[thisPlayer] == 1);
+        -:   51:
+        1:   52:    printf("All tests complete!\n");
+        -:   53:
+        1:   54:    return 0;
+        -:   55:}

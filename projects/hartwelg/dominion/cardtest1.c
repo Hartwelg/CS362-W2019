@@ -8,10 +8,11 @@
 
 #define TESTCARD "smithy"
 
+#define asserttrue(bool) if(bool) printf("TEST SUCCESSFULLY COMPLETED.\n"); else printf("TEST FAILED: '" #bool  "' on line %d.\n", __LINE__);
+
 int main() {
     int newCards = 0;
     int discarded = 0;
-    int xtraCoins = 0;
     int shuffledCards = 0;
 
     //int i, j, m;
@@ -34,39 +35,30 @@ int main() {
 
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
-	choice1 = 1;
 	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-	newCards = 2;
-	xtraCoins = 0;
-	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
-	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
-	printf("coins = %d, expected = %d\n", testG.coins, G.coins + xtraCoins);
-	assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
-	assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
-	assert(testG.coins == G.coins + xtraCoins);
+	newCards = 3;
+	printf("current player's hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+	asserttrue(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
 
-	// ----------- TEST 2: choice1 = 2 = +0 coins --------------
-	printf("TEST 2: choice1 = 2 = +0 coins\n");
+	printf("other player's hand count = %d, expected = %d\n", G.handCount[thisPlayer], testG.handCount[thisPlayer] + discarded - newCards);
+	asserttrue(G.handCount[thisPlayer] == testG.handCount[thisPlayer] + discarded - newCards);
 
-	// copy the game state to a test case
-	memcpy(&testG, &G, sizeof(struct gameState));
-	choice1 = 2;
-	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+	// ----------- TEST 2: Cards come from current player's deck --------------
+	printf("current player's deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
+	asserttrue(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
 
-	newCards = 2;
-	xtraCoins = 0;
-	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
-	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
-	printf("coins = %d, expected = %d\n", testG.coins, G.coins + xtraCoins);
-	assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
-	assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
-	assert(testG.coins == G.coins + xtraCoins);
+	printf("other player's deck count = %d, expected = %d\n", G.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
+	asserttrue(G.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
+
+	// ----------- TEST 3: no state change for other players, state change for current player--------------
+	printf("Testing that current player has played a card\n");
+	asserttrue(testG.playedCardCount == 1);
+
+	printf("Testing that other player has not played a card\n");
+	asserttrue(G.playedCardCount == 0);
 
 	printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
 
-
 	return 0;
 }
-
-
