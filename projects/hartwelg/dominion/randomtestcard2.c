@@ -20,17 +20,20 @@ int checkFeast(int p, struct gameState *post, int choice1, int choice2, int choi
 	//copy passed in gamestate to new one
 	memcpy (&pre, post, sizeof(struct gameState));
 	//call Feast
+	printf("choice1: %d, choice2: %d, choice3: %d, handpos: %d, p: %d\n", choice1, choice2, choice3, handpos, p);
 	r = Feast(choice1, choice2, choice3, post, handpos, p);
+	printf("finished function call\n");
 
 	// check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
-    asserttrue (r == 0);
-    asserttrue(post->hand[p][handpos] != pre.hand[p][handpos]);
-    asserttrue(post->handCount[p] == pre.handCount[p]);
-    asserttrue(post->deckCount[p] == pre.deckCount[p]);
-    asserttrue(post->discardCount[p] == pre.discardCount[p]);
-    asserttrue(post->playedCardCount == pre.playedCardCount);
-
-    asserttrue(memcmp(&pre, post, sizeof(struct gameState)) == 1);
+    asserttrue (r == 0);//make sure function returns
+    //check that correct changes were made to gameState
+    asserttrue(post->hand[p][handpos] != pre.hand[p][handpos]); //card in handpos should be different in both gamestates (card was played and another was gained)
+    asserttrue(post->handCount[p] == pre.handCount[p]); //number of cards in hand should be same in both gamestates
+    asserttrue(post->deckCount[p] == pre.deckCount[p]); //number of cards in deck should be same in both gamestates
+    asserttrue(post->discardCount[p] != pre.discardCount[p]); //number of discarded cards should be different in both gamestates
+    asserttrue(post->playedCardCount == pre.playedCardCount); //number of played cards should be different in both gamestates
+    
+    asserttrue(memcmp(&pre, post, sizeof(struct gameState)) == 1);//check that changes were made to only one gameState
 	return 0;
 }
 
@@ -51,11 +54,10 @@ int main()
 		{
 			((char*)&pre)[i] = floor(Random() * 256);
 		}
-		choice1 = floor(Random() * 2);
-		choice2 = floor(Random() * 2);
-		choice3 = floor(Random() * 2);
+		//only choice1 is used for Feast, according to dominion.h
+		choice1 = floor(Random() * 4);
 
-		handpos = floor(Random() * 5);
+		handpos = floor(Random() * 4);
 		//currentPlayer
 		p = floor(Random() * 2);
 		//randomize gameState
@@ -64,6 +66,7 @@ int main()
     	pre.handCount[p] = floor(Random() * MAX_HAND);
 
     	checkFeast(p, &pre, choice1, choice2, choice3, handpos);
+    	printf("end round %d\n", n);
 	}
 	printf("TESTS COMPLETED\n");
 	exit(0);
