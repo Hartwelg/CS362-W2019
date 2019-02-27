@@ -5,12 +5,13 @@
 #include <assert.h>
 #include "rngs.h"
 #include <stdlib.h>
+#include <math.h>
 
 #define TESTCARD "adventurer"
 
 #define asserttrue(bool) if(bool) printf("TEST SUCCESSFULLY COMPLETED.\n"); else printf("TEST FAILED: '" #bool  "' on line %d.\n", __LINE__);
 
-int checkAdventurer(int p, struct gameState *post, int choice1, int choice2, int choice3, int handpos, int currentPlayer)
+int checkAdventurer(int p, struct gameState *post, int choice1, int choice2, int choice3, int handpos)
  {
  	int r;
  	//new test gamestate
@@ -18,42 +19,30 @@ int checkAdventurer(int p, struct gameState *post, int choice1, int choice2, int
 	//copy passed in gamestate to new one
 	memcpy (&pre, post, sizeof(struct gameState));
 	//call Feast
-	Feast(choice1, choice2, choice3, &post, handpos, currentPlayer);
+	r = Adventurer(choice1, choice2, choice3, post, handpos, p);
 
-	
+	//check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
 
-	// //check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
-	// if (post.deckCount[p] > 0)
-	// {
-	//     post.handCount[p]++;
-	//     post.hand[p][pre.handCount[p]-1] = post.deck[p][post.deckCount[p]-1];
-	//     post.deckCount[p]--;
-	// } 
-	// else if (post.discardCount[p] > 0)
-	// {
-	//     memcpy(post.deck[p], post->deck[p], sizeof(int) * post.discardCount[p]);
-	//     memcpy(post.discard[p], post->discard[p], sizeof(int)*post.discardCount[p]);
-	//     post.hand[p][post->handCount[p]-1] = post->hand[p][post->handCount[p]-1];
-	//     post.handCount[p]++;
-	//     post.deckCount[p] = post.discardCount[p]-1;
-	//     post.discardCount[p] = 0;
-	// }
-
-	//put assertions here
+	asserttrue (r == 0);
+	asserttrue(post->hand[p][handpos] != pre.hand[p][handpos]);
+    asserttrue(post->handCount[p] == pre.handCount[p]);
+    asserttrue(post->deckCount[p] == pre.deckCount[p]);
+    asserttrue(post->discardCount[p] == pre.discardCount[p]);
+    asserttrue(post->playedCardCount == pre.playedCardCount);
+    asserttrue(memcmp(&pre, post, sizeof(struct gameState)) == 0);
 	return 0;
 }
 
 int main()
 {
-	int choice1 = 0, choice2 = 0, choice3 = 0, handpos, currentPlayer, n, i, p;
+	int choice1 = 0, choice2 = 0, choice3 = 0, handpos, n, i, p;
 	struct gameState pre;
 
-	printf("Testing Feast Card\n");
+	printf("Testing Adventurer Card\n");
 
 	SelectStream(2);
 	PutSeed(3);
 
-	currentPlayer = whoseTurn(&pre);
 	//randomize all values of parameters of Feast, then call checkFeast
 	for (n = 0; n < 2000; n++)
 	{
@@ -61,17 +50,15 @@ int main()
 		{
 			((char*)&pre)[i] = floor(Random() * 256);
 		}
-		// choice1 = floor(random() * 3);
-		// choice2 = floor(random() * 3);
-		// choice3 = floor(random() * 3);
 
-		handpos = floor(random() * 5);
+		handpos = floor(Random() * 5);
 		p = floor(Random() * 2);
-		currentPlayer = floor(random() * p);
 		pre.deckCount[p] = floor(Random() * MAX_DECK);
     	pre.discardCount[p] = floor(Random() * MAX_DECK);
     	pre.handCount[p] = floor(Random() * MAX_HAND);
 
-    	checkAdventurer(p, &pre, choice1, choice2, choice3, handpos, currentPlayer);
+    	checkAdventurer(p, &pre, choice1, choice2, choice3, handpos);
 	}
+	printf("TESTS COMPLETED\n");
+	exit(0);
 }
