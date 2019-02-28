@@ -693,11 +693,8 @@ int Remodel(int choice1, int choice2, int choice3, struct gameState *state, int 
 	  return 0;
 	}
       gainCard(choice2, state, 0, currentPlayer);
-      printf("gained card\n");
       //discard card from hand
-      printf("handPos: %d, currentPlayer: %d\n", handPos, currentPlayer);
       discardCard(handPos, currentPlayer, state, 0);
-      printf("discarded card\n");
       //discard trashed card
       for (i = 0; i < state->handCount[currentPlayer]; i++)
 	{
@@ -714,19 +711,16 @@ int Feast(int choice1, int choice2, int choice3, struct gameState *state, int ha
 {
 	int i = 0, x = 0;
 	int temphand[MAX_HAND];
-  printf("variables done\n");
 	//gain card with cost up to 5
       //Backup hand
       for (i = 0; i <= state->handCount[currentPlayer]; i++){
 	temphand[i] = state->hand[currentPlayer][i];//Backup card
 	state->hand[currentPlayer][i] = -1;//Set to nothing
       }
-      printf("for loop done\n");
       //Backup hand
 
       //Update Coins for Buy
       updateCoins(currentPlayer, state, 5);
-      printf("coins updated\n");
       x = 1;//Condition to loop on
       while( x == 1) {//Buy one card
       	if (supplyCount(choice1, state) <= 0){
@@ -749,7 +743,6 @@ int Feast(int choice1, int choice2, int choice3, struct gameState *state, int ha
       	  if (DEBUG){
       	    printf("Deck Count: %d\n", state->handCount[currentPlayer] + state->deckCount[currentPlayer] + state->discardCount[currentPlayer]);
       	  }
-          printf("at gaincard in Feast\n");
       	  gainCard(choice1, state, 0, currentPlayer);//Gain the card
           printf("card gained\n");
       	  x = 0;//No more buying cards
@@ -760,7 +753,6 @@ int Feast(int choice1, int choice2, int choice3, struct gameState *state, int ha
 
       	}
       }
-      printf("while loop done\n");
 
       //Reset Hand
       for (i = 0; i <= state->handCount[currentPlayer]; i++){

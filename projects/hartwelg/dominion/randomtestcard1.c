@@ -18,16 +18,13 @@ int checkRemodel(int p, struct gameState *post, int choice1, int choice2, int ch
 	struct gameState pre;
 	//copy passed in gamestate to new one
 	memcpy (&pre, post, sizeof(struct gameState));
-	printf("memcpy done\n");
 	//call Remodel
 	printf("choice1: %d, choice2: %d, choice3: %d, handpos: %d, p: %d, pre.deckCount: %d, pre.handCount: %d, pre.discardCount: %d, pre.supplyCount: %d\n", choice1, choice2, choice3, handpos, p, pre.deckCount[p], pre.handCount[p], pre.discardCount[p], pre.supplyCount[p]);
 	r = playCard(handpos, choice1, choice2, choice3, &pre);
 	// r = Remodel(choice1, choice2, choice3, post, handpos, p);
-	printf("function run\n");
 	//check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
 	asserttrue (r == 0);//check that function returns
 	//check that correct changes were made to gameState
-	asserttrue(post->hand[p][handpos] != pre.hand[p][handpos]); //card in handpos should be different between gamestates
     asserttrue(post->handCount[p] == pre.handCount[p]); //number of cards in hand should be the same between gamestates (one trashed, one gained)
     asserttrue(post->deckCount[p] == pre.deckCount[p]); //number of cards in deck should be the same between gamestates
     asserttrue(post->discardCount[p] == pre.discardCount[p] + 1); //number of discarded cards in post should be equal to # cards in pre + 1
@@ -42,9 +39,6 @@ int main()
 	int choice1 = 0, choice2 = 0, choice3 = 0, handpos, n, i, p;
 	struct gameState pre;
 
-	int k[10] = {adventurer, council_room, feast, gardens, mine,
-	       remodel, smithy, village, baron, great_hall};
-
 	printf("Testing Remodel Card\n");
 
 	SelectStream(2);
@@ -57,9 +51,7 @@ int main()
 		{
 			((char*)&pre)[i] = floor(Random() * 256);
 		}
-		//choice1 and choice2 are used for Remodel, according to dominion.h
-		choice1 = floor(Random() * MAX_DECK);
-		choice2 = floor(Random() * MAX_DECK);
+		
 
 		handpos = 1 + floor(Random() * 5);
 		p = floor(Random() * 2);
@@ -67,6 +59,9 @@ int main()
     	pre.discardCount[p] = floor(Random() * MAX_DECK);
     	pre.handCount[p] = floor(Random() * MAX_HAND);
 
+		//choice1 and choice2 are used for Remodel, according to dominion.h
+		choice1 = floor(Random() * pre.handCount[p]);
+		choice2 = floor(Random() * pre.deckCount[p]);
     	checkRemodel(p, &pre, choice1, choice2, choice3, handpos);
     	printf("end round %d\n", n);
 	}
