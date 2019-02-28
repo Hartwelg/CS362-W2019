@@ -31,24 +31,24 @@ runtests: testDrawCard
 
 randomtestcard1: dominion.o randomtestcard1.c rngs.o
 	gcc -o randomtestcard1 randomtestcard1.c -g dominion.o rngs.o $(CFLAGS)
-	# echo "randomtestcard1" >> randomtestcard1.out
-	# ./randomtestcard1 >> randomtestcard1.out
-	# gcov dominion.c -b >> randomtestcard1.out
-	# cat dominion.c.gcov >> randomtestcard1.out
+	echo "randomtestcard1" >> randomtestcard1.out
+	./randomtestcard1 >> randomtestcard1.out
+	gcov dominion.c -b -f >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
 
 randomtestcard2: dominion.o randomtestcard2.c rngs.o
 	gcc -o randomtestcard2 randomtestcard2.c -g dominion.o rngs.o $(CFLAGS)
-	# echo "randomtestcard2" >> randomtestcard2.out
-	# ./randomtestcard2 >> randomtestcard2.out
-	# gcov dominion.c -b >> randomtestcard2.out
-	# cat dominion.c.gcov >> randomtestcard2.out
+	echo "randomtestcard2" >> randomtestcard2.out
+	./randomtestcard2 >> randomtestcard2.out
+	gcov dominion.c -b -f >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
 
 randomtestadventurer: dominion.o randomtestadventurer.c rngs.o
 	gcc -o randomtestadventurer randomtestadventurer.c -g dominion.o rngs.o $(CFLAGS)
-	# echo "randomtestadventurer" >> randomtestadventurer.out
-	# ./randomtestadventurer >> randomtestadventurer.out
-	# gcov dominion.c -b >> randomtestadventurer.out
-	# cat dominion.c.gcov >> randomtestadventurer.out
+	echo "randomtestadventurer" >> randomtestadventurer.out
+	./randomtestadventurer >> randomtestadventurer.out
+	gcov dominion.c -b -f >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)

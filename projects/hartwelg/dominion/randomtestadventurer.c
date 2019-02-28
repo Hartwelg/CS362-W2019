@@ -13,7 +13,7 @@
 
 int checkAdventurer(int p, struct gameState *post, int choice1, int choice2, int choice3, int handpos)
  {
- 	int r, temp[MAX_HAND];
+ 	int r;
  	//new test gamestate
 	struct gameState pre;
 	//copy passed in gamestate to new one
@@ -21,7 +21,8 @@ int checkAdventurer(int p, struct gameState *post, int choice1, int choice2, int
 	//call Adventurer
 	printf("at adventurer function call\n");
 	printf("choice1: %d, choice2: %d, choice3: %d, handpos: %d, p: %d\n", choice1, choice2, choice3, handpos, p);
-	r = Adventurer(choice1, choice2, choice3, post, handpos, p, &temp[MAX_HAND]);
+	r = playCard(handpos, choice1, choice2, choice3, &pre);
+	//r = Adventurer(choice1, choice2, choice3, post, handpos, p, &temp[MAX_HAND]);
 	printf("after adventurer call\n");
 	//check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
 	asserttrue (r == 0);
@@ -29,7 +30,7 @@ int checkAdventurer(int p, struct gameState *post, int choice1, int choice2, int
     asserttrue(post->deckCount[p] != pre.deckCount[p]);
     asserttrue(post->discardCount[p] == pre.discardCount[p]);
     asserttrue(post->playedCardCount == pre.playedCardCount);
-    asserttrue(memcmp(&pre, post, sizeof(struct gameState)) != 0);
+    asserttrue(memcmp(&pre, post, sizeof(struct gameState)) == 0);
     printf("returning from check\n");
 	return 0;
 }
@@ -60,6 +61,8 @@ int main()
 		pre.deckCount[p] = floor(Random() * MAX_DECK);
     	pre.discardCount[p] = floor(Random() * MAX_DECK);
     	pre.handCount[p] = floor(Random() * MAX_HAND);
+    	pre.numActions = floor(Random() * MAX_HAND);
+
 		for (j = 0; j < pre.handCount[p]; j++)
 		{
 			do
@@ -83,8 +86,8 @@ int main()
 				}
 			}
 			while (numTreasureCards > 0);
-
 		}
+
 		printf("calling checkAdventurer\n");
     	checkAdventurer(p, &pre, choice1, choice2, choice3, handpos);
     	printf("End round %d\n", n);

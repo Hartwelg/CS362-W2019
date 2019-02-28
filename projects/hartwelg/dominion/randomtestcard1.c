@@ -19,8 +19,10 @@ int checkRemodel(int p, struct gameState *post, int choice1, int choice2, int ch
 	//copy passed in gamestate to new one
 	memcpy (&pre, post, sizeof(struct gameState));
 	printf("memcpy done\n");
-	//call Feast
-	r = Remodel(choice1, choice2, choice3, post, handpos, p);
+	//call Remodel
+	printf("choice1: %d, choice2: %d, choice3: %d, handpos: %d, p: %d, pre.deckCount: %d, pre.handCount: %d, pre.discardCount: %d, pre.supplyCount: %d\n", choice1, choice2, choice3, handpos, p, pre.deckCount[p], pre.handCount[p], pre.discardCount[p], pre.supplyCount[p]);
+	r = playCard(handpos, choice1, choice2, choice3, &pre);
+	// r = Remodel(choice1, choice2, choice3, post, handpos, p);
 	printf("function run\n");
 	//check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
 	asserttrue (r == 0);//check that function returns
@@ -31,7 +33,7 @@ int checkRemodel(int p, struct gameState *post, int choice1, int choice2, int ch
     asserttrue(post->discardCount[p] == pre.discardCount[p] + 1); //number of discarded cards in post should be equal to # cards in pre + 1
     asserttrue(post->playedCardCount == pre.playedCardCount + 1); //number of played cards should be the same between gamestates
     
-    asserttrue(memcmp(&pre, post, sizeof(struct gameState)) == 1);//check whether gamestates match
+    asserttrue(memcmp(&pre, post, sizeof(struct gameState)) == 0);//check whether gamestates match
 	return 0;
 }
 
@@ -39,6 +41,9 @@ int main()
 {
 	int choice1 = 0, choice2 = 0, choice3 = 0, handpos, n, i, p;
 	struct gameState pre;
+
+	int k[10] = {adventurer, council_room, feast, gardens, mine,
+	       remodel, smithy, village, baron, great_hall};
 
 	printf("Testing Remodel Card\n");
 
@@ -53,11 +58,11 @@ int main()
 			((char*)&pre)[i] = floor(Random() * 256);
 		}
 		//choice1 and choice2 are used for Remodel, according to dominion.h
-		choice1 = 1 + floor(Random() * 5);
-		choice2 = 1 + floor(Random() * 5);
+		choice1 = floor(Random() * MAX_DECK);
+		choice2 = floor(Random() * MAX_DECK);
 
 		handpos = 1 + floor(Random() * 5);
-		p = 1 + floor(Random() * 2);
+		p = floor(Random() * 2);
 		pre.deckCount[p] = floor(Random() * MAX_DECK);
     	pre.discardCount[p] = floor(Random() * MAX_DECK);
     	pre.handCount[p] = floor(Random() * MAX_HAND);
