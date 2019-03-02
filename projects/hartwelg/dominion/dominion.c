@@ -643,33 +643,38 @@ int getCost(int cardNumber)
   return -1;
 }
 
-int Adventurer(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int currentPlayer, int temphand[MAX_HAND])
+int Adventurer(struct gameState *state, int handPos, int currentPlayer, int temphand[MAX_HAND])
 {
 	int z = 0;
 	int drawntreasure = 0;
 	int cardDrawn;
-	while(drawntreasure<2){
-	if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
-	  shuffle(currentPlayer, state);
-	}
-	drawCard(currentPlayer, state);
-	cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-	if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
-	  drawntreasure++;
-	else{
-	  temphand[z]=cardDrawn;
-	  state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
-	  z++;
-	}
+  printf("in Adventurer, variables initialized\n");
+  printf("drawnTreasure: %d\n", drawntreasure);
+	while(drawntreasure<2)
+  {
+        if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
+          shuffle(currentPlayer, state);
+        }
+        drawCard(currentPlayer, state);
+        cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
+        if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+          drawntreasure++;
+        else{
+          temphand[z]=cardDrawn;
+          state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
+          z++;
+        }
       }
       while(z-1 > -1){
-	state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
-	z=z-1;
+        state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
+        z=z-1;
       }
+      printf("returning from Adventurer\n");
+      printf("--------------------------------------------------------------------\n");
       return 0;
 }
 
-int Smithy(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int currentPlayer)
+int Smithy(struct gameState *state, int handPos, int currentPlayer)
 {
 	int i = 0;
 	//+3 Cards
@@ -718,7 +723,6 @@ int Feast(int choice1, int choice2, int choice3, struct gameState *state, int ha
 	state->hand[currentPlayer][i] = -1;//Set to nothing
       }
       //Backup hand
-
       //Update Coins for Buy
       updateCoins(currentPlayer, state, 5);
       x = 1;//Condition to loop on
@@ -733,7 +737,7 @@ int Feast(int choice1, int choice2, int choice3, struct gameState *state, int ha
       	}
       	else if (state->coins < getCost(choice1)){
       	  printf("That card is too expensive!\n");
-
+          break;
       	  if (DEBUG){
       	    printf("Coins: %d < %d\n", state->coins, getCost(choice1));
       	  }
@@ -744,7 +748,6 @@ int Feast(int choice1, int choice2, int choice3, struct gameState *state, int ha
       	    printf("Deck Count: %d\n", state->handCount[currentPlayer] + state->deckCount[currentPlayer] + state->discardCount[currentPlayer]);
       	  }
       	  gainCard(choice1, state, 0, currentPlayer);//Gain the card
-          printf("card gained\n");
       	  x = 0;//No more buying cards
 
       	  if (DEBUG){
@@ -808,11 +811,11 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   
 	if (card == adventurer)
 	{
-    	Adventurer(choice1, choice2, choice3, state, handPos, currentPlayer, temphand);
+    	Adventurer(state, handPos, currentPlayer, temphand);
 	}
 	else if (card == smithy)
 	{
-		Smithy(choice1, choice2, choice3, state, handPos, currentPlayer);
+		Smithy(state, handPos, currentPlayer);
 	}
 	else if (card == remodel)
 	{
@@ -1292,12 +1295,10 @@ int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
   //Note: supplyPos is enum of choosen card
 	
   //check if supply pile is empty (0) or card is not used in game (-1)
-  printf("in gaincard\n");
   if ( supplyCount(supplyPos, state) < 1 )
     {
       return -1;
     }
-    printf("supplycount called in gaincard\n");
 	
   //added card for [whoseTurn] current player:
   // toFlag = 0 : add to discard
@@ -1319,7 +1320,6 @@ int gainCard(int supplyPos, struct gameState *state, int toFlag, int player)
       state->discard[player][ state->discardCount[player] ] = supplyPos;
       state->discardCount[player]++;
     }
-    printf("if else passed in gaincard\n");
 	
   //decrease number in supply pile
   state->supplyCount[supplyPos]--;

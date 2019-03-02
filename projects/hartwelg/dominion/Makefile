@@ -45,10 +45,10 @@ randomtestcard2: dominion.o randomtestcard2.c rngs.o
 
 randomtestadventurer: dominion.o randomtestadventurer.c rngs.o
 	gcc -o randomtestadventurer randomtestadventurer.c -g dominion.o rngs.o $(CFLAGS)
-	echo "randomtestadventurer" >> randomtestadventurer.out
-	./randomtestadventurer >> randomtestadventurer.out
-	gcov dominion.c -b -f >> randomtestadventurer.out
-	cat dominion.c.gcov >> randomtestadventurer.out
+	# echo "randomtestadventurer" >> randomtestadventurer.out
+	# ./randomtestadventurer >> randomtestadventurer.out
+	# gcov dominion.c -b -f >> randomtestadventurer.out
+	# cat dominion.c.gcov >> randomtestadventurer.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)

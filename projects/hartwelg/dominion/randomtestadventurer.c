@@ -11,33 +11,32 @@
 
 #define asserttrue(bool) if(bool) printf("TEST SUCCESSFULLY COMPLETED.\n"); else printf("TEST FAILED: '" #bool  "' on line %d.\n", __LINE__);
 
-int checkAdventurer(int p, struct gameState *post, int choice1, int choice2, int choice3, int handpos)
+int checkAdventurer(int p, struct gameState *post, int handpos)
  {
- 	int r;
+ 	// int r, temp[MAX_HAND];
  	//new test gamestate
 	struct gameState pre;
 	//copy passed in gamestate to new one
 	memcpy (&pre, post, sizeof(struct gameState));
 	//call Adventurer
 	printf("at adventurer function call\n");
-	printf("choice1: %d, choice2: %d, choice3: %d, handpos: %d, p: %d\n", choice1, choice2, choice3, handpos, p);
-	r = playCard(handpos, choice1, choice2, choice3, &pre);
-	//r = Adventurer(choice1, choice2, choice3, post, handpos, p, &temp[MAX_HAND]);
+	printf("handpos: %d, p: %d\n", handpos, p);
+	//r = Adventurer(post, handpos, p, &temp[MAX_HAND]);
 	printf("after adventurer call\n");
 	//check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
-	asserttrue (r == 0);
+	// asserttrue (r == 0);
     asserttrue(post->handCount[p] == pre.handCount[p]);
     asserttrue(post->deckCount[p] != pre.deckCount[p]);
     asserttrue(post->discardCount[p] == pre.discardCount[p]);
     asserttrue(post->playedCardCount == pre.playedCardCount);
-    asserttrue(memcmp(&pre, post, sizeof(struct gameState)) == 0);
+
     printf("returning from check\n");
 	return 0;
 }
 
 int main()
 {
-	int choice1 = 0, choice2 = 0, choice3 = 0, handpos, n, i, j, p, numTreasureCards, prob;
+	int handpos, n = 0, p, temp[1000000];
 	struct gameState pre;
 
 	printf("Testing Adventurer Card\n");
@@ -48,48 +47,39 @@ int main()
 	//randomize all values of parameters of Adventurer, then call checkAdventurer
 	for (n = 0; n < 2000; n++)
 	{
-		for (i = 0; i < sizeof(struct gameState); i++)
-		{
-			((char*)&pre)[i] = floor(Random() * 256);
-		}
-		//make sure at least 2 treasure cards are present at all times
-		numTreasureCards = 2 + floor(Random() * MAX_HAND);
-		
-		prob = floor(Random() * MAX_DECK); //3 different treasure cards
-		handpos = 1 + floor(Random() * 4);
+		handpos = 1 + floor(Random() * 5);
 		p = 1 + floor(Random() * 2);
-		pre.deckCount[p] = floor(Random() * MAX_DECK);
-    	pre.discardCount[p] = floor(Random() * MAX_DECK);
-    	pre.handCount[p] = floor(Random() * MAX_HAND);
-    	pre.numActions = floor(Random() * MAX_HAND);
+		pre.deckCount[p] = floor(Random() * MAX_DECK + 1);
+    	pre.discardCount[p] = floor(Random() * MAX_DECK + 1);
+    	pre.handCount[p] = floor(Random() * MAX_HAND + 1);
 
-		for (j = 0; j < pre.handCount[p]; j++)
-		{
-			do
-			{
-				//random supply of treasure cards
-				//checking for 1, 2, or 3 for 3 different treasure cards
-				if (prob == 1)
-				{
-					pre.hand[p][j] = copper;
-					--numTreasureCards;
-				}
-				else if (prob == 2)
-				{
-					pre.hand[p][j] = silver;
-					--numTreasureCards;
-				}
-				else
-				{
-					pre.hand[p][j] = gold;
-					--numTreasureCards;
-				}
-			}
-			while (numTreasureCards > 0);
-		}
+		// pre.discardCount[p] = pre.deckCount[p];
+		// pre.handCount[p] = pre.deckCount[p];
 
-		printf("calling checkAdventurer\n");
-    	checkAdventurer(p, &pre, choice1, choice2, choice3, handpos);
+		pre.phase = 0 + floor(Random() * 3);
+		pre.numActions = 0 + floor(Random() * MAX_DECK);
+
+		//make sure at least 2 treasure cards are present at all times
+    	pre.supplyCount[gold] = 2 + floor(Random() * MAX_DECK);
+    	pre.supplyCount[silver] = 2 + floor(Random() * MAX_DECK);
+    	pre.supplyCount[copper] = 2 + floor(Random() * MAX_DECK);
+		// pre.supplyCount[gold] = 2;
+		// pre.supplyCount[silver] = 2;
+		// pre.supplyCount[copper] = 2;
+
+		// // //making sure at least one of every card is available
+		// // for (q = 0; q < 27; q++)
+		// // {
+		// // 	//using handpos just because it was a random value, didn't need to make another variable
+		// // 	pre.supplyCount[q] = handpos;
+		// // }
+
+		printf("calling Adventurer\n");
+		printf("handpos: %d, p: %d\n", handpos, p);
+		Adventurer(&pre, handpos, p, &temp[MAX_HAND]);
+
+		// printf("calling checkAdventurer\n");
+    	// checkAdventurer(p, &pre, choice1, choice2, choice3, handpos);
     	printf("End round %d\n", n);
 	}
 	printf("TESTS COMPLETED\n");

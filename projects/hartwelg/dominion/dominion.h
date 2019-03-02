@@ -128,9 +128,9 @@ int getWinners(int players[MAX_PLAYERS], struct gameState *state);
 /* Set array position of each player who won (remember ties!) to
    1, others to 0 */
 
-int Adventurer(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int currentPlayer, int temphand[MAX_HAND]);
+int Adventurer(struct gameState *state, int handPos, int currentPlayer, int temphand[MAX_HAND]);
 
-int Smithy(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int currentPlayer);
+int Smithy(struct gameState *state, int handPos, int currentPlayer);
 
 int Remodel(int choice1, int choice2, int choice3, struct gameState *state, int handPos, int currentPlayer);
 
