@@ -648,8 +648,6 @@ int Adventurer(struct gameState *state, int handPos, int currentPlayer, int temp
 	int z = 0;
 	int drawntreasure = 0;
 	int cardDrawn;
-  printf("in Adventurer, variables initialized\n");
-  printf("drawnTreasure: %d\n", drawntreasure);
 	while(drawntreasure<2)
   {
         if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
@@ -662,6 +660,10 @@ int Adventurer(struct gameState *state, int handPos, int currentPlayer, int temp
         else{
           temphand[z]=cardDrawn;
           state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
+          if (state->handCount[currentPlayer] == 0)
+          {
+            break;
+          }
           z++;
         }
       }
@@ -669,8 +671,6 @@ int Adventurer(struct gameState *state, int handPos, int currentPlayer, int temp
         state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
         z=z-1;
       }
-      printf("returning from Adventurer\n");
-      printf("--------------------------------------------------------------------\n");
       return 0;
 }
 
