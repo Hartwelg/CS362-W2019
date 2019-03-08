@@ -21,26 +21,61 @@ public class UrlValidatorTest extends TestCase {
    
    public void testManualTest()
    {
-//You can use this function to implement your manual testing	   
+      // Manual testing: each write 10 urls of the format assertTrue(isValid(URL)==result)
+      // You can use this function to implement your manual testing	   
 	   
    }
    
    
    public void testYourFirstPartition()
    {
-	 //You can use this function to implement your First Partition testing	   
+      //You can use this function to implement your First Partition testing
 
+      String[] validSchemes = {"http://", "https://"};// TODO: add 3 more schemes each
+      String[] validAuthorities = {"www.google.com"}; // TODO: add 3 more authorities each
+      String[] validPorts = {"", ":120"};             // TODO: add 3 more ports each
+      String[] validPaths = {"/$41"};                 // TODO: add 3 more valid paths each 
+      String[] validQueries = {"?action=view"}        // TODO: add 2 valid queries each
+      for(scheme:validSchemes){
+         for(auth:validAuthorities){
+            for(port:validPorts){
+               for(path:validPaths){
+                  for(query:validQueries){
+                     String testURL = scheme + auth + port + path + query;
+                     assertTrue(isValid(testURL));
+                  }
+               }
+            }
+         }
+      }
    }
    
    public void testYourSecondPartition(){
 		 //You can use this function to implement your Second Partition testing	   
+      String[] invalidSchemes = {};// TODO: add 3 more schemes each
+      String[] invalidAuthorities = {};// TODO: add 3 more authorities each
+      String[] invalidPorts = {};            // TODO: add 3 more ports each
+      String[] invalidPaths = {};                // TODO: add 3 more valid paths each 
+      String[] invalidQueries = {}       // TODO: add 2 more queries each
+      for(scheme:invalidSchemes){
+         for(auth:invalidAuthorities){
+            for(port:invalidPorts){
+               for(path:invalidPaths){
+                  for(query:invalidQueries){
+                     String testURL = scheme + auth + port + path + query;
+                     assertTrue(isValid(testURL) == false);
+                  }
+               }
+            }
+         }
+      }
 
    }
    //You need to create more test cases for your Partitions if you need to 
    
    public void testIsValid()
-   {
-	   //You can use this function for programming based testing
+   {  // unit test cases that implement various methods to test different URLS
+	   // You can use this function for programming based testing
 
    }
    
