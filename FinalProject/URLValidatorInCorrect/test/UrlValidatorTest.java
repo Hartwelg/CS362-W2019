@@ -21,8 +21,18 @@ public class UrlValidatorTest extends TestCase {
    
    public void testManualTest()
    {
+	   UrlValidator validator = new UrlValidator();
 //You can use this function to implement your manual testing	   
-	   
+	   assertTrue(validator.isValid("http://www.google.com") == true);
+	   assertTrue(validator.isValid("http://www.ebay.com") == true);
+	   assertTrue(validator.isValid("https://www.com") == false);
+	   assertTrue(validator.isValid("h3t:..") == false);
+	   assertTrue(validator.isValid("http:") == false);
+	   assertTrue(validator.isValid("www.google.com") == true);
+	   assertTrue(validator.isValid("") == false);
+	   assertTrue(validator.isValid("http://www.google.com:80/test/t") == true);
+	   assertTrue(validator.isValid("ftp://www.duckduckgo.com:40000/temp/test") == true);
+	   assertTrue(validator.isValid("ftp://www.google.com") == true);
    }
    
    
@@ -41,7 +51,50 @@ public class UrlValidatorTest extends TestCase {
    public void testIsValid()
    {
 	   //You can use this function for programming based testing
-
+	   String[] testSchemes = {"http://", "https://", "ftp://", "h3t://", "ssh://", ""};
+	   String[] badTestSchemes = {"http", "h3t", "htp", "fes:", "ssh"};
+	   String[] testAuthorities = {"www.google.com", "www.ebay.com", "example.url", , "www.ex.url.", "this.that.com.", "255.255.255.255",  "10.0.0.1", ""};
+	   String[] badTestAuthorities = {"www.com", "www", "dot.com", "this.that", "256.255.255.255"};
+	   String[] testPorts = {"80", "0", "65535", "1", ""};
+	   String[] badTestPorts = {"65555", "99999999", "70000"};
+	   String[] testPaths = {"/test", ,  "/test/file",  "/$", ""};
+	   String[] badTestPaths = {"t", ".t.", "/t/", "/that//"};
+	   String[] testPathOptions = {"/test", "/test/file", "./", "/.", ""};
+	   String[] testQueries = {"", "?action=view", "?action=edit&mode=up"};
+	   
+	   int i;
+	   for (i = 0; i < testSchemes.length; i++)
+	   {
+		   assertTrue(isValidScheme(testSchemes[i]) == true);
+	   }
+	   for (i = 0; i < badTestSchemes.length; i++)
+	   {
+		   assertTrue(isValidScheme(badTestSchemes[i]) == false);
+	   }
+	   for (i = 0; i < testAuthorities.length; i++)
+	   {
+		   assertTrue(isValidAuthority(testAuthorities[i]) == true);
+	   }
+	   for (i = 0; i < badTestAuthorities.length; i++)
+	   {
+		   assertTrue(isValidAuthority(badTestAuthorities[i]) == false);
+	   }
+	   for (i = 0; i < testPorts.length; i++)
+	   {
+		   assertTrue(isValidPort(testPorts[i]);
+	   }
+	   for (i = 0; i < badTestPorts.length; i++)
+	   {
+		   assertTrue(isValidPort(badTestPorts[i]) == false);
+	   }
+	   for (i = 0; i < testPaths.length; i++)
+	   {
+		   isValidPath(testPaths[i]);
+	   }
+	   for (i = 0; i < testQueries.length; i++)
+	   {
+		   isValidQuery(testQueries[i]);
+	   }
    }
    
 
