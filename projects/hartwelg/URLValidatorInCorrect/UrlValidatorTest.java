@@ -81,7 +81,7 @@ public class UrlValidatorTest extends TestCase {
 	   }
 	   for (i = 0; i < testPorts.length; i++)
 	   {
-		   assertTrue(isValidPort(testPorts[i]);
+		   assertTrue(isValidPort(testPorts[i]) == true);
 	   }
 	   for (i = 0; i < badTestPorts.length; i++)
 	   {
