@@ -13,6 +13,7 @@
 
 int checkAdventurer(int p, struct gameState *post, int handpos, int temp[MAX_HAND])
  {
+	int choice1, choice2, choice3;
  	int r;
  	//new test gamestate
 	struct gameState pre;
@@ -22,7 +23,7 @@ int checkAdventurer(int p, struct gameState *post, int handpos, int temp[MAX_HAN
 	printf("at adventurer function call\n");
 	printf("handpos: %d, p: %d\n", handpos, p);
 
-	r = Adventurer(post, handpos, p, &temp[MAX_HAND]);
+	r = Adventurer(adventurer, choice1, choice2, choice3, post, handpos, p);
 	
 	printf("after adventurer call\n");
 	//check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
@@ -49,7 +50,7 @@ int main()
 	PutSeed(3);
 
 	//randomize all values of parameters of Adventurer, then call checkAdventurer
-	for (n = 0; n < 120; n++)
+	for (n = 0; n < 2000; n++)
 	{
 		handpos = 1 + floor(Random() * 5);
 		p = 1 + floor(Random() * 2);

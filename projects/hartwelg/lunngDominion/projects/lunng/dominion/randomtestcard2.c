@@ -22,7 +22,7 @@ int checkFeast(int p, struct gameState *post, int choice1, int choice2, int choi
 
 	//call Feast
 	printf("choice1: %d, choice2: %d, choice3: %d, handpos: %d, p: %d\n", choice1, choice2, choice3, handpos, p);
-	r = Feast(choice1, choice2, choice3, post, handpos, p);
+	r = cardEffect(feast, choice1, choice2, choice3, post, handpos,& p);
 
 	// check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
     asserttrue (r == 0);//make sure function returns

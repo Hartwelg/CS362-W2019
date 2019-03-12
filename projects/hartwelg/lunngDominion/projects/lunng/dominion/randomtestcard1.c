@@ -20,7 +20,7 @@ int checkRemodel(int p, struct gameState *post, int choice1, int choice2, int ch
 	memcpy (&pre, post, sizeof(struct gameState));
 	//call Remodel
 	printf("choice1: %d, choice2: %d, choice3: %d, handpos: %d, p: %d, pre.deckCount: %d, pre.handCount: %d, pre.discardCount: %d, pre.supplyCount: %d\n", choice1, choice2, choice3, handpos, p, pre.deckCount[p], pre.handCount[p], pre.discardCount[p], pre.supplyCount[p]);
-	r = Remodel(choice1, choice2, choice3, post, handpos, p);
+	r = cardEffect(remodel, choice1, choice2, choice3, post, handpos, p);
 	//check all values (parameters) in passed in gamestate (post) against control gamestate (pre)
 	asserttrue (r == 0);//check that function returns
 	//check that correct changes were made to gameState
