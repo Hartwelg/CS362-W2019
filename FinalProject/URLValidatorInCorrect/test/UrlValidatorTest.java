@@ -31,11 +31,11 @@ public class UrlValidatorTest extends TestCase {
    {
       //You can use this function to implement your First Partition testing
 
-      String[] validSchemes = {"http://", "https://"};// TODO: add 3 more schemes each
-      String[] validAuthorities = {"www.google.com"}; // TODO: add 3 more authorities each
-      String[] validPorts = {"", ":120"};             // TODO: add 3 more ports each
-      String[] validPaths = {"/$41"};                 // TODO: add 3 more valid paths each 
-      String[] validQueries = {"?action=view"}        // TODO: add 2 valid queries each
+      String[] validSchemes = {"http://", "https://", "ftp://", "h3t://", "ssh://"};// TODO: add 3 more schemes each
+      String[] validAuthorities = {"www.google.com", "www.ebay.com", "tinyurl.com", "oregonstate.edu"}; // TODO: add 3 more authorities each
+      String[] validPorts = {"", ":120", ":80", ":65535", ":640"};             // TODO: add 3 more ports each
+      String[] validPaths = {"/$41", "/test", "/path/test", "/one/two/three/four"};                 // TODO: add 3 more valid paths each 
+      String[] validQueries = {"?action=view", "", "?action=edit&mode=up"}        // TODO: add 2 valid queries each
       for(scheme:validSchemes){
          for(auth:validAuthorities){
             for(port:validPorts){
@@ -52,16 +52,16 @@ public class UrlValidatorTest extends TestCase {
 
     public void testYourSecondPartition(){
         //You can use this function to implement your Second Partition testing
-        String[] validSchemes = {"http://", "https://", ""};// TODO: add 3 more schemes each
-        String[] validAuthorities = {"www.google.com", "www.yahoo.com", "www.worldtangsoodo.com"}; // TODO: add 3 more authorities each
-        String[] validPorts = {"", ":120", ":640"};             // TODO: add 3 more ports each
+        String[] validSchemes = {"http://", "https://", "", "ftp://", "h3t://", "ssh://"};// TODO: add 3 more schemes each
+        String[] validAuthorities = {"www.google.com", "www.yahoo.com", "www.worldtangsoodo.com", "ebay.com", "google.com", "oregonstate.edu"}; // TODO: add 3 more authorities each
+        String[] validPorts = {"", ":120", ":640", ":80", ":1000", ":65535"};             // TODO: add 3 more ports each
         String[] validPaths = {"/$41", "/error", "/software/htp/cics/index.html"};                 // TODO: add 3 more valid paths each
-        String[] validQueries = {"?action=view"}        // TODO: add 2 valid queries each
-        String[] invalidSchemes = {"errno", "ftp:", "://"};       // TODO: add 3 more schemes each
-        String[] invalidAuthorities = {"badname.badname", ".com.google", "none"};   // TODO: add 3 more authorities each
-        String[] invalidPorts = {"0", ":1000222", ":port"};         // TODO: add 3 more ports each
-        String[] invalidPaths = {"//", "path??", "probablybadlol///"};         // TODO: add 3 more valid paths each
-        String[] invalidQueries = {"xyz::#$%^"}        // TODO: add 2 more queries each
+        String[] validQueries = {"?action=view", "", "?action=edit&mode=up"};        // TODO: add 2 valid queries each
+        String[] invalidSchemes = {"errno", "ftp:", "://", "./", "../", "ssh"};       // TODO: add 3 more schemes each
+        String[] invalidAuthorities = {"badname.badname", ".com.google", "none", "this.that", "co.co.", "..."};   // TODO: add 3 more authorities each
+        String[] invalidPorts = {"0", ":1000222", ":port", "..", "badport", "999999999"};         // TODO: add 3 more ports each
+        String[] invalidPaths = {"//", "path??", "probablybadlol///", "/test//", "path/test/../.", "badpath"};         // TODO: add 3 more valid paths each
+        String[] invalidQueries = {"xyz::#$%^", "badquery", "???"};        // TODO: add 2 more queries each
         // build 5 strings with only one invalid part for each invalid part, make sure that full string is invalid
         for(scheme:invalidSchemes){
             for(auth:invalidAuthorities){
