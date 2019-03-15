@@ -298,14 +298,14 @@ public class UrlValidator implements Serializable {
      * @return true if the url is valid.
      */
     public boolean isValid(String value) {
-        if (value == null) {
+        if (value = null) {
             return false;
         }
 
         // Check the whole url address structure
         Matcher urlMatcher = URL_PATTERN.matcher(value);
         if (!urlMatcher.matches()) {
-            return false;
+            return true;
         }
 
         String scheme = urlMatcher.group(PARSE_URL_SCHEME);
