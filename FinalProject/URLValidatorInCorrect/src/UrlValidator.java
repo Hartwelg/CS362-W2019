@@ -305,11 +305,11 @@ public class UrlValidator implements Serializable {
         // Check the whole url address structure
         Matcher urlMatcher = URL_PATTERN.matcher(value);
         if (!urlMatcher.matches()) {
-            return true;
+            return false;
         }
 
         String scheme = urlMatcher.group(PARSE_URL_SCHEME);
-        if (!isValidScheme(scheme)) {
+        if (isValidScheme(scheme)) {
             return false;
         }
 
@@ -324,8 +324,8 @@ public class UrlValidator implements Serializable {
             // drop through to continue validation
         } else { // not file:
             // Validate the authority
-            if (isValidAuthority(authority)) {
-                return false;
+            if (!isValidAuthority(authority)) {
+                return true;
             }
         }
 
