@@ -298,7 +298,7 @@ public class UrlValidator implements Serializable {
      * @return true if the url is valid.
      */
     public boolean isValid(String value) {
-        if (value = null) {
+        if (value == null) {
             return false;
         }
 
