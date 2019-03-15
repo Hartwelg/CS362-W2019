@@ -9,9 +9,7 @@ import junit.framework.TestCase;
 
 
 
-
 public class UrlValidatorTest extends TestCase {
-
 
    public UrlValidatorTest(String testName) {
       super(testName);
