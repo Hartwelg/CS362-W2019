@@ -35,7 +35,17 @@ public class UrlValidatorTest extends TestCase {
 	   assertTrue(validator.isValid("ftp://www.google.com") == true);
       // Manual testing: each write 10 urls of the format assertTrue(isValid(URL)==result)
       // You can use this function to implement your manual testing	   
-	   
+      
+      assertTrue(validator.isValid("http://www.github.com") == true;
+      assertTrue(validator.isValid("http://:0/test1?action=view") == false;
+      assertTrue(validator.isValid("www.github.com") == true;
+      assertTrue(validator.isValid("www.google") == false;
+      assertTrue(validator.isValid("www.google.com:65535/test1/?action=edit&mode=up") ==true ;
+      assertTrue(validator.isValid("255.255.255.255") == true;
+      assertTrue(validator.isValid("1.2.3.4") == true;
+      assertTrue(validator.isValid("1.2.3.4.0") == false;
+      assertTrue(validator.isValid("1.2.3.4:0") == true;
+      assertTrue(validator.isValid("weibfdjwncwev") == false;
    }
    
    
